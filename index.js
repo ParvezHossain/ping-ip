@@ -29,8 +29,8 @@ async function getAliveIPList (listOfIps){
 app.post("/", async(req, res) => {
     if (req.body.list) {
         let ipList = req.body.list;
-        console.log(ipList);
-        let aliveList = await getAliveIPList(ipList);
+        const uniqueList = [...new Set(ipList)];
+        let aliveList = await getAliveIPList(uniqueList);
         res.json({
             aliveIpList: aliveList
         })
