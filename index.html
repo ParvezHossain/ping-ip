@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            }
+
+            #chartdiv {
+                width: 100%;
+                height: 500px;
+            }
+        </style>
+        <script src=".config.js"></script>
+        <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+        <script>
+            var socket = io(`${HOST_IP}:${PING_SERVER_HTTP_PORT}`);
+            socket.on("active-ip-list", (ips) => {
+                document.getElementById("ip-list").innerHTML = "";
+                console.log(ips);
+                let list = document.getElementById("ip-list");
+                ips.forEach((item) => {
+                    let li = document.createElement("li");
+                    li.innerText = item;
+                    list.appendChild(li);
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <h1 style="text-align: center;">Active Server List</h1>
+        <div id="ip-list"></div>
+    </body>
+</html>
